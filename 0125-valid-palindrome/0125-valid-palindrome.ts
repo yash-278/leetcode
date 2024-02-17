@@ -1,25 +1,37 @@
 function isPalindrome(s: string): boolean {
   let newStr = "";
 
-  for (const letter of s) {
-    const code = letter.charCodeAt(0);
+  let leftPointer = 0;
+  let rightPointer = s.length - 1;
+
+  let isPalindrome = true;
+
+  while (leftPointer <= rightPointer) {
     if (
-      !(code > 47 && code < 58) &&
-      !(code > 64 && code < 91) &&
-      !(code > 96 && code < 123)
+      !(s.charCodeAt(leftPointer) > 47 && s.charCodeAt(leftPointer) < 58) &&
+      !(s.charCodeAt(leftPointer) > 64 && s.charCodeAt(leftPointer) < 91) &&
+      !(s.charCodeAt(leftPointer) > 96 && s.charCodeAt(leftPointer) < 123)
     ) {
+      leftPointer += 1;
       continue;
     }
 
-    newStr = newStr.concat(letter.toLowerCase());
+    if (
+      !(s.charCodeAt(rightPointer) > 47 && s.charCodeAt(rightPointer) < 58) &&
+      !(s.charCodeAt(rightPointer) > 64 && s.charCodeAt(rightPointer) < 91) &&
+      !(s.charCodeAt(rightPointer) > 96 && s.charCodeAt(rightPointer) < 123)
+    ) {
+      rightPointer -= 1;
+      continue;
+    }
+
+    if (s[leftPointer].toLowerCase() !== s[rightPointer].toLowerCase()) {
+      isPalindrome = false;
+    }
+
+    leftPointer += 1;
+    rightPointer -= 1;
   }
 
-  if (newStr === reverseString(newStr)) return true;
-
-  return false;
+  return isPalindrome;
 }
-
-function reverseString(str: string) {
-  return str.split("").reduce((acc, char) => char + acc, "");
-}
-
