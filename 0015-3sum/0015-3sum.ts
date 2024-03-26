@@ -1,6 +1,5 @@
 function threeSum(nums: number[]): number[][] {
   nums.sort((a, b) => a - b);
-  console.log("Sorted", nums);
   const triplets: number[][] = [];
   for (let i = 0; i < nums.length - 2; i++) {
     const element = nums[i];
