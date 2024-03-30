@@ -5,10 +5,7 @@ function maxArea(heightArr: number[]): number {
   let area = 0;
 
   while (left < right) {
-    const height = Math.min(heightArr[left], heightArr[right]);
-    const width = right - left;
-
-    area = Math.max(height * width, area);
+    area = Math.max(Math.min(heightArr[left], heightArr[right]) * (right - left), area);
 
     if (heightArr[left] >= heightArr[right]) {
       right -= 1;
