@@ -1,28 +1,38 @@
 function isValid(s: string): boolean {
-    const closingToOpening = {
-        '}': '{',
-        ']': '[',
-        ')': '(',
-    };
-    const stack: string[] = [];
-    const chars = s.split('');
+  const splitParenthesis = s.split("");
 
-    for (let i = 0; i < chars.length; i++) {
-        const element = chars[i];
-        if (element in closingToOpening) {
-            const pop = stack.pop();
+  const opening = ["{", "(", "["];
 
-            if (closingToOpening[element] === pop) {
-                continue;
-            } else {
-                return false;
-            }
-        } else {
-            stack.push(element);
-        }
+  const stack: string[] = [];
+
+  for (const bracket of splitParenthesis) {
+    if (opening.includes(bracket)) {
+      stack.push(bracket);
+      continue;
+    } else {
+      const opening = getCounterpart(bracket);
+
+      if (stack[stack.length - 1] !== opening) {
+        return false;
+      }
+
+      stack.pop();
     }
+  }
 
-    if (stack.length > 0) return false;
-
-    return true;
+  return stack.length > 0 ? false : true;
 }
+
+const getCounterpart = (opening: string) => {
+  switch (opening) {
+    case ")":
+      return "(";
+    case "]":
+      return "[";
+    case "}":
+      return "{";
+
+    default:
+      break;
+  }
+};
