@@ -1,21 +1,25 @@
 function groupAnagrams(strs: string[]): string[][] {
-  const map = new Map<string, string[]>();
+  const HashMap = new Map<string, string[]>();
 
-  for (const el of strs) {
-    let count = new Array(26).fill(0);
+  for (const str of strs) {
+    let count: number[] = Array(26).fill(0);
 
-    el.split("").forEach((char) => {
-      count[char.charCodeAt(0) - "a".charCodeAt(0)] += 1;
-    });
+    for (const char of str) {
+      count[char.charCodeAt(0) - 97] = count[char.charCodeAt(0) - 97] + 1;
+    }
 
-    const data = map.get(count.toString());
+    const hashString = count
+      .map((num) => `${num.toString()}${String.fromCharCode(num + 97)}`)
+      .join("");
 
-    if (data) {
-      map.set(count.toString(), [...data, el]);
+    const existingValues = HashMap.get(hashString)?.values();
+
+    if (existingValues) {
+      HashMap.set(hashString, [...existingValues, str]);
     } else {
-      map.set(count.toString(), [el]);
+      HashMap.set(hashString, [str]);
     }
   }
 
-  return Array.from(map.values());
+  return Array.from(HashMap.values());
 }
