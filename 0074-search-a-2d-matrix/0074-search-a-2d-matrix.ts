@@ -1,7 +1,7 @@
 function searchMatrix(matrix: number[][], target: number): boolean {
   let leftArray = 0;
   let rightArray = matrix.length - 1;
-  let mid = (leftArray + rightArray) / 2;
+  let mid = Math.round((leftArray + rightArray) / 2);
   while (leftArray <= rightArray) {
     const midArray = matrix[mid];
 
@@ -11,13 +11,13 @@ function searchMatrix(matrix: number[][], target: number): boolean {
 
     if (target < midArray[0]) {
       rightArray = mid - 1;
-      mid = (leftArray + rightArray) / 2;
+      mid = Math.round((leftArray + rightArray) / 2);
       continue;
     }
 
     if (target > midArray[midArray.length - 1]) {
       leftArray = mid + 1;
-      mid = (leftArray + rightArray) / 2;
+      mid = Math.round((leftArray + rightArray) / 2);
       continue;
     }
   }
