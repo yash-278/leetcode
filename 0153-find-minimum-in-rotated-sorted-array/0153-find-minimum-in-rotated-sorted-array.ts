@@ -13,7 +13,7 @@ function findMin(nums: number[]): number {
     let mid = Math.round((left + right) / 2);
     min = Math.min(min, nums[mid]);
 
-    if (nums[mid] >= left) {
+    if (nums[mid] >= nums[left]) {
       left = mid + 1;
     } else {
       right = mid - 1;
